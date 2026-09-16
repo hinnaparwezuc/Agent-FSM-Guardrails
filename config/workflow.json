@@ -1,0 +1,11 @@
+{
+  "initial_state": "start",
+  "states": {
+    "start": ["plan"],
+    "plan": ["execute", "blocked"],
+    "execute": ["verify", "blocked"],
+    "verify": ["execute", "complete", "blocked"],
+    "complete": [],
+    "blocked": []
+  }
+}
