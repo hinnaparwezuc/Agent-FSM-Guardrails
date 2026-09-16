@@ -1,30 +1,27 @@
-from fsm import FSMGuardrail, State
+from fsm import FSMGuardrail
 
 
 class GuardedAgent:
+    """Agent wrapper that validates actions through an FSM guardrail."""
 
     def __init__(self):
         self.guardrail = FSMGuardrail()
 
-    def request_transition(self, next_state: State) -> bool:
-        """
-        Attempt to transition the agent to a new state.
+    def request_transition(self, next_state: str) -> bool:
+        """Attempt a state transition through the guardrail."""
 
-        Returns True when the transition is allowed and False when blocked.
-        """
+        previous_state = self.guardrail.state
+
         if not self.guardrail.can_transition(next_state):
             print(
-                f"BLOCKED: {self.guardrail.state.value} "
-                f"-> {next_state.value}"
+                f"BLOCKED: {previous_state} -> {next_state}"
             )
             return False
 
-        previous_state = self.guardrail.state
         self.guardrail.transition(next_state)
 
         print(
-            f"ALLOWED: {previous_state.value} "
-            f"-> {next_state.value}"
+            f"ALLOWED: {previous_state} -> {next_state}"
         )
 
         return True
