@@ -1,5 +1,4 @@
 from agent import GuardedAgent
-from fsm import State
 
 
 def main():
@@ -7,14 +6,14 @@ def main():
 
     print("Agent FSM Guardrails Demo\n")
 
-    agent.request_transition(State.PLAN)
-    agent.request_transition(State.EXECUTE)
+    agent.request_transition("plan")
+    agent.request_transition("execute")
 
-    # Invalid transition: execution cannot skip verification.
-    agent.request_transition(State.COMPLETE)
+    # Invalid: verification cannot be skipped.
+    agent.request_transition("complete")
 
-    agent.request_transition(State.VERIFY)
-    agent.request_transition(State.COMPLETE)
+    agent.request_transition("verify")
+    agent.request_transition("complete")
 
 
 if __name__ == "__main__":
